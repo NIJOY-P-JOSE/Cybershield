@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CyberShield — Security Incident Simulation</title>
+<style>
+:root{color-scheme:dark;font-family:Consolas,Monaco,"Courier New",monospace;background:#050707;color:#e9fff0}
+*{box-sizing:border-box}
+body{margin:0;min-height:100vh;background:radial-gradient(ellipse at center,#142018 0,#070b08 48%,#020303 100%);overflow-x:hidden}
+body:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.12;background:repeating-linear-gradient(0deg,transparent 0 3px,#70ff9a 4px 5px)}
+main{width:min(900px,94vw);margin:5vh auto;padding:clamp(18px,4vw,36px);border:1px solid #1e6b3b;background:rgba(2,10,5,.94);box-shadow:0 0 28px #00ff5530, inset 0 0 25px #00ff5510;position:relative}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border-bottom:1px solid #245d38;padding-bottom:15px}
+.brand{font-size:12px;letter-spacing:3px;color:#8dffad}
+.status{font-size:12px;color:#ff6969;border:1px solid #a92b2b;padding:6px 9px;animation:pulse 1s infinite}
+h1{font-size:clamp(27px,6vw,52px);line-height:1.05;color:#ff3434;text-shadow:0 0 15px #ff000060;margin:28px 0 10px;letter-spacing:1px}
+.sub{color:#b9c8be;line-height:1.6}
+.panel{border:1px solid #37483c;background:#080f0a;padding:16px;margin:18px 0}
+.label{font-size:11px;color:#8bffad;letter-spacing:2px;margin-bottom:9px}
+.row{display:flex;justify-content:space-between;gap:14px;padding:8px 0;border-bottom:1px dashed #263b2c;font-size:13px;flex-wrap:wrap}
+.row:last-child{border-bottom:0}
+.red{color:#ff6868}.green{color:#8bffad}.yellow{color:#ffdf75}
+.progress{height:9px;background:#17251b;margin-top:10px;border:1px solid #294c33}
+.bar{height:100%;width:0;background:#ff3838;box-shadow:0 0 12px #ff3333;transition:width .25s}
+.console{min-height:128px;max-height:190px;overflow:auto;color:#91fcae;font-size:12px;line-height:1.65;white-space:pre-wrap}
+button{font:inherit;font-weight:bold;padding:13px 16px;border:1px solid #ff4a4a;background:#260b0b;color:#fff;cursor:pointer}
+button:hover{background:#491010}
+button:focus-visible{outline:2px solid white;outline-offset:3px}
+.actions{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}
+#reveal{display:none;border-color:#8bffad;background:#0a2412;color:#dffff0}
+.fine{font-size:11px;color:#92a497;line-height:1.6;margin-top:20px}
+#incident{display:none}
+#incident h2{font-size:clamp(21px,4vw,32px);color:#ffdf75}
+.big{font-size:clamp(16px,3vw,22px);line-height:1.5}
+@keyframes pulse{50%{opacity:.45}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{animation:none!important;transition:none!important}}
+</style>
+</head>
+<body>
+<main>
+  <div class="top">
+    <div class="brand">VYVIDH 2026–27 // CYBERSHIELD</div>
+    <div class="status">● SIMULATED ALERT</div>
+  </div>
+  <section id="initial">
+    <h1>⚠ SECURITY BREACH DETECTED</h1>
+    <div class="sub big">A suspicious link was opened on this computer.<br>Running a <span class="red">SIMULATED</span> security incident sequence…</div>
+    <div class="panel">
+      <div class="label">LOCAL TRAINING CONSOLE</div>
+      <div class="row"><span>Link classification</span><span class="red">SUSPICIOUS (SIMULATED)</span></div>
+      <div class="row"><span>Credential access</span><span class="yellow">NOT ATTEMPTED</span></div>
+      <div class="row"><span>Files accessed</span><span class="green">NONE</span></div>
+      <div class="row"><span>Network activity</span><span class="green">NONE</span></div>
+      <div class="row"><span>Real device scan</span><span class="green">NOT PERFORMED</span></div>
+      <div class="progress"><div class="bar" id="bar"></div></div>
+      <div class="console" id="console" aria-live="polite">[INIT] Loading training simulation…</div>
+    </div>
+    <div class="actions">
+      <button id="run">RUN INCIDENT SIMULATION</button>
+      <button id="reveal">REVEAL THE TRUTH</button>
+    </div>
+    <div class="fine">Classroom demonstration only. This page does not hack, scan, monitor, lock, or change the computer. It is a visual simulation and collects no information.</div>
+  </section>
+  <section id="incident">
+    <h2>THIS WAS A PHISHING AWARENESS SIMULATION.</h2>
+    <p class="big">You clicked a suspicious link in the scenario. In a real attack, a link could lead to a fake login page, trick you into downloading malware, or expose information if you enter it.</p>
+    <div class="panel">
+      <div class="label">WHAT TO DO IN REAL LIFE</div>
+      <div class="row"><span>1.</span><span>Stop interacting with the page.</span></div>
+      <div class="row"><span>2.</span><span>Do not enter passwords, OTPs, or payment details.</span></div>
+      <div class="row"><span>3.</span><span>Close the page and report the message to IT/security staff.</span></div>
+      <div class="row"><span>4.</span><span>If you entered a password, change it from the official site and alert IT.</span></div>
+    </div>
+    <div class="actions"><button id="again">REPLAY SIMULATION</button></div>
+  </section>
+</main>
+<script>
+const run=document.getElementById('run'), reveal=document.getElementById('reveal');
+const bar=document.getElementById('bar'), consoleBox=document.getElementById('console');
+const lines=[
+'[01] Checking suspicious URL… SIMULATED',
+'[02] Analysing message indicators… URGENCY DETECTED',
+'[03] Checking for credential entry… NONE',
+'[04] Checking local files… NOT ACCESSED',
+'[05] Checking network connections… NO SCAN PERFORMED',
+'[06] INCIDENT STATUS: TRAINING SIMULATION'
+];
+let timerIds=[];
+function clearTimers(){timerIds.forEach(clearTimeout);timerIds=[]}
+function start(){
+ clearTimers();bar.style.width='0%';consoleBox.textContent='[INIT] Starting visual-only simulation…\n';
+ run.disabled=true;reveal.style.display='none';
+ lines.forEach((line,i)=>timerIds.push(setTimeout(()=>{
+   consoleBox.textContent+=line+'\n';consoleBox.scrollTop=consoleBox.scrollHeight;
+   bar.style.width=((i+1)/lines.length*100)+'%';
+   if(i===lines.length-1){consoleBox.textContent+='\n[SAFE] No real system activity occurred.';run.disabled=false;reveal.style.display='inline-block'}
+ },450*(i+1))));
+}
+run.addEventListener('click',start);
+reveal.addEventListener('click',()=>{document.getElementById('initial').style.display='none';document.getElementById('incident').style.display='block'});
+document.getElementById('again').addEventListener('click',()=>{document.getElementById('incident').style.display='none';document.getElementById('initial').style.display='block';start()});
+</script>
+</body>
+</html>
